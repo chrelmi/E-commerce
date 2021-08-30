@@ -12,3 +12,5 @@ define("DB_HOST", "db");
 define("DB_USERNAME", "root");
 define("DB_PASSWORD", "root");
 define("DB_NAME", "ecommerce_db");
+
+define("RUOLO_SUPER_USER", "1");

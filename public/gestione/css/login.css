@@ -1,0 +1,11 @@
+.body-login {
+    background-color: #efefef;
+}
+
+.box {
+    width: 400px;
+    padding: 20px;
+    background-color: #FFF;
+    border: 2px solid #c8c8c8;
+    border-radius: 5px;
+}

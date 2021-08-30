@@ -2,6 +2,9 @@
 
 include_once dirname(__DIR__) . '/inc/config.php';
 
+/**
+ * @var mysqli
+ */
 global $dbhandle;
 $dbhandle = new mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -9,17 +12,69 @@ if ($dbhandle->connect_errno) {
     die("Impossibile connettersi al database: " . $dbhandle->connect_error);
 }
 
-function select()
+/**
+ * Funzione utilizzata per l'estrazione dei dati
+ * @param string $query
+ * @return array
+ */
+function select($query) :array
 {
+    global $dbhandle;
+    $return = [];
     
+    if (empty($query)) {
+        return $return;
+    }
+    
+    $result = $dbhandle->query($query);
+    if ($result->num_rows == 0) {
+        return $return;
+    }
+    
+    foreach ($result->fetch_assoc() as $row) {
+        $return[] = $row;
+    }
+    
+    return $return;
 }
 
-function selectFirst()
+/**
+ * Funzione utilizzata per l'estrazione del singolo record
+ * @param string $query
+ * @return array
+ */
+function selectFirst($query) :array
 {
-    
+    global $dbhandle;
+    $result = $dbhandle->query($query);
+    return $result ? $result->fetch_assoc() : [];
 }
 
-function esegui()
+/**
+ * Funzione utilizzata per le operazioni nel database,
+ * Ad esempio insert, update e delete.
+ * @param string $query
+ * @return bool
+ */
+function esegui($query) :bool
 {
+    global $dbhandle;
     
+    if (empty($query)) {
+        return false;
+    }
+    
+    return $dbhandle->query($query);
 }
+
+/**
+ * Funzione utilizzata per la sanificazione dei dati del db
+ * @param string $str
+ * @return string
+ */
+function enc($str)
+{
+    global $dbhandle;
+    return $dbhandle->escape_string(trim($str));
+}
+
