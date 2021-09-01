@@ -17,26 +17,25 @@ if ($dbhandle->connect_errno) {
  * @param string $query
  * @return array
  */
-function select($query) :array
-{
+function select($query) {
     global $dbhandle;
+    
     $return = [];
     
-    if (empty($query)) {
-        return $return;
+    if ($query != "") {
+        $que = $dbhandle->query($query);
+        if ($que) {
+            for ($i=0; $i < $que->num_rows; $i++) {
+                $dati = $que->fetch_assoc();
+                $return[$i] = $dati;
+            }
+        } else {
+            $return = array("ERRORE", $dbhandle->error);
+        }
     }
-    
-    $result = $dbhandle->query($query);
-    if ($result->num_rows == 0) {
-        return $return;
-    }
-    
-    foreach ($result->fetch_assoc() as $row) {
-        $return[] = $row;
-    }
-    
     return $return;
 }
+
 
 /**
  * Funzione utilizzata per l'estrazione del singolo record

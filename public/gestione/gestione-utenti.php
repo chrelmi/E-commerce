@@ -11,7 +11,7 @@ if (!checkLoginGestione()) {
 
 $utente = getUtente();
 
-$titoloPagina = "dashboard";
+$titoloPagina = "Gestione utenti";
 
 ?>
 
@@ -30,7 +30,24 @@ $titoloPagina = "dashboard";
 		<div id="layoutSidenav">
 			<?php
     		include_once GESTIONE_PATH . 'inc/sidebar.php';
+            ?>
+            
+            <div id="layoutSidenav_content">
+                <main>
+                	<div class="container-fluid px-4">
+    		
+    		<?php
+    		if (isset($_GET['nuovo'])) {
+    		    include_once GESTIONE_PATH . 'inc/utenti/nuovo.php';
+    		} elseif (isset($_GET['modifica'])) {
+    		    include_once GESTIONE_PATH . 'inc/utenti/modifica.php';
+    		} else {
+    		    include_once GESTIONE_PATH . 'inc/utenti/cerca.php';
+    		}
     		?>
+    				</div>
+    			</main>
+			</div>
 		</div>
 		<?php
 		include_once GESTIONE_PATH . 'inc/script.php';
