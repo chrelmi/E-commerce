@@ -11,3 +11,12 @@ function getUtenteById($id)
 {
     return selectFirst("SELECT * FROM utenti WHERE id = '" . enc($id) . "'");
 }
+
+function checkUniqueEmailUtente($email, $idUtente = null)
+{
+    $query = "SELECT * FROM utenti WHERE email = '" . enc($email) . "'";
+    if (!empty($idUtente)) {
+        $query .= " AND id != '" . enc($idUtente) . "'";
+    }
+    return selectFirst($query);
+}

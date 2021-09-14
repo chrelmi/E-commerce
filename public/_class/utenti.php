@@ -18,6 +18,16 @@ switch ($_POST['azione']) {
             //todo: exit_back();
         }
         
+        if (!empty(checkUniqueEmailUtente($_POST['email']))) {
+            $_SESSION['notifica'] = [
+                'type' => 'error',
+                'title' => 'Attenzione!',
+                'text' => 'Indirizzo email già registrato!'
+            ];
+            header('Location: ' . GESTIONE . 'gestione-utenti.php');
+            exit();
+        }
+        
         $query = "
             INSERT INTO
                 utenti
@@ -48,6 +58,16 @@ switch ($_POST['azione']) {
             empty($_POST['email']) || empty($_POST['id_utente'])
         ) {
             //todo: exit_back();
+        }
+        
+        if (!empty(checkUniqueEmailUtente($_POST['email'], $_POST['id_utente']))) {
+            $_SESSION['notifica'] = [
+                'type' => 'error',
+                'title' => 'Attenzione!',
+                'text' => 'Indirizzo email già registrato!'
+            ];
+            header('Location: ' . GESTIONE . 'gestione-utenti.php');
+            exit();
         }
         
         $query = "
