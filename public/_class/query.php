@@ -1,6 +1,7 @@
 <?php
 
 include_once dirname(__DIR__) . '/inc/config.php';
+include_once ROOT_PATH . '_class/functions.php';
 
 /**
  * @var mysqli
@@ -42,7 +43,7 @@ function select($query) {
  * @param string $query
  * @return array
  */
-function selectFirst($query) :array
+function selectFirst($query)
 {
     global $dbhandle;
     $result = $dbhandle->query($query);

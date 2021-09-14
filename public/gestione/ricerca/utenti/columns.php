@@ -1,6 +1,12 @@
 <?php
 return [
     [
+        'data' => 'ruolo',
+        'orderable' => false,
+        'titolo' => 'Ruolo',
+        'class' => '',
+    ],
+    [
         'data' => 'cognome',
         'orderable' => true,
         'titolo' => 'Cognome',
@@ -22,6 +28,6 @@ return [
         'data' => 'azioni',
         'orderable' => false,
         'titolo' => 'Azioni',
-        'class' => 'aligncenter colonna-azioni',
+        'class' => 'text-center colonna-azioni',
     ],
 ];

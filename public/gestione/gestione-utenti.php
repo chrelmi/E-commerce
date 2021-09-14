@@ -13,6 +13,19 @@ $utente = getUtente();
 
 $titoloPagina = "Gestione utenti";
 
+if (isset($_GET['modifica'])) {
+    $utenteModifica = getUtenteById($_GET['modifica']);
+    if (empty($utenteModifica)) {
+        $_SESSION['notifica'] = [
+            'type' => 'error',
+            'title' => 'Attenzione',
+            'text' => 'Utente non trovato!'
+        ];
+        header('Location: ' . GESTIONE . 'gestione-utenti.php');
+        exit();
+    }
+}
+
 ?>
 
 <!doctype html>
@@ -21,7 +34,7 @@ $titoloPagina = "Gestione utenti";
     	<?php
     	include_once GESTIONE_PATH . 'inc/head.php';
     	?>
-		<title>Hello, world!</title>
+		<title>GESTIONE UTENTI</title>
 	</head>
 	<body class="sb-nav-fixed">
 		<?php
@@ -34,7 +47,7 @@ $titoloPagina = "Gestione utenti";
             
             <div id="layoutSidenav_content">
                 <main>
-                	<div class="container-fluid px-4">
+                	<div class="container-fluid p-4">
     		
     		<?php
     		if (isset($_GET['nuovo'])) {

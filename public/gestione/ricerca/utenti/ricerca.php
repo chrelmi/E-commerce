@@ -51,9 +51,11 @@ $length = $length > 0 ? $length : 25;
 
 $query = "
     SELECT SQL_CALC_FOUND_ROWS
-        u.*
+        u.*,
+        ur.descrizione AS ruolo
     FROM
         utenti AS u
+    INNER JOIN utenti_ruoli AS ur ON ur.id = u.id_ruolo
     WHERE
         " . implode(" AND ", $where) . "
     ORDER BY " . implode(", ", $order) . "
@@ -66,25 +68,28 @@ $rows = selectFirst("SELECT FOUND_ROWS() AS righe");
 $items = [];
 
 foreach ($utenti as $utente) {
+    $linkModifica = GESTIONE . 'gestione-utenti.php?' . http_build_query([
+        'modifica' => $utente['id']
+    ]);
+    $linkRimuovi = ROOT . '_class/utenti.php';
     
     $items[] = [
+        'ruolo' => $utente['ruolo'],
         'cognome' => $utente['cognome'],
         'nome' => $utente['nome'],
         'email' => $utente['email'],
         'azioni' => <<<HTML
         <div class="text-center">
-        <a href="#" title="Vedi" target="_blank" class="btn btn-submit">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-        </a>
-        <a class="btn btn-plus" href="?clone={$utente['id']}" title="Clona">
-            <i class="fal fa-clone"></i>
-        </a>
-        <a class="btn btn-edit" href="?edit={$utente['id']}" title="Modifica">
-            <i class="fas fa-edit"></i>
-        </a>
-        <a class="btn btn-remove elimina-record" data-path="?delete={$utente['id']}" title="Elimina">
-            <i class="fas fa-trash"></i>
-        </a>
+            <a class="btn btn-sm btn-outline-warning" href="{$linkModifica}" title="Modifica">
+                <i class="fas fa-edit"></i> Modifica
+            </a>
+            <form method="post" action="{$linkRimuovi}" class="d-inline">
+                <input type="hidden" name="azione" value="elimina" />
+                <input type="hidden" name="id_utente" value="{$utente['id']}" />
+                <button type="submit" class="btn btn-sm btn-outline-danger rimuovi-record" title="Elimina">
+                    <i class="fas fa-trash"></i> Rimuovi
+                </button>
+            </form>
         </div>
         HTML,
         ];
