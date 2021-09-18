@@ -7,3 +7,7 @@
 <link rel="stylesheet" href="<?= GESTIONE ?>css/library/datatables.min.css">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="<?= GESTIONE ?>css/library/datatables.min.css">
+
+<link rel="stylesheet" href="<?= GESTIONE ?>css/style.css" />

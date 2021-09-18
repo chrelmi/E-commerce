@@ -57,7 +57,7 @@ $ruoliUtenti = getRuoliUtenti();
 		<div class="col-12">
 			<div class="btn-group">
 				<button type="submit" class="btn btn-outline-success">Salva</button>
-				<a href="" class="btn btn-outline-secondary">Indietro</a>
+				<a href="<?= GESTIONE ?>gestione-utenti.php" class="btn btn-outline-secondary">Indietro</a>
 			</div>
 		</div>
 	</div>

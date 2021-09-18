@@ -20,3 +20,23 @@ function checkUniqueEmailUtente($email, $idUtente = null)
     }
     return selectFirst($query);
 }
+
+function getCategorieProdotti()
+{
+    return select("SELECT * FROM categorie_prodotti WHERE attivo = 1");
+}
+
+function checkUniqueSlugCategoria($slug, $idCategoria = null)
+{
+    $query = "SELECT * FROM categorie_prodotti WHERE slug = '" . enc($slug) . "'";
+    if (!empty($idCategoria)) {
+        $query .= " AND id != '" . enc($idCategoria) . "'";
+    }
+    
+    return selectFirst($query);
+}
+
+function getCategoriaById($id)
+{
+    return selectFirst("SELECT * FROM categorie_prodotti WHERE id = '" . enc($id) . "'");
+}

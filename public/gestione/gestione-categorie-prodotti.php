@@ -11,17 +11,17 @@ if (!checkLoginGestione()) {
 
 $utente = getUtente();
 
-$titoloPagina = "Gestione utenti";
+$titoloPagina = "Gestione categorie prodotti";
 
 if (isset($_GET['modifica'])) {
-    $utenteModifica = getUtenteById($_GET['modifica']);
-    if (empty($utenteModifica)) {
+    $categoriaModifica = getCategoriaById($_GET['modifica']);
+    if (empty($categoriaModifica)) {
         $_SESSION['notifica'] = [
             'type' => 'error',
             'title' => 'Attenzione',
-            'text' => 'Utente non trovato!'
+            'text' => 'Categoria non trovata!'
         ];
-        header('Location: ' . GESTIONE . 'gestione-utenti.php');
+        header('Location: ' . GESTIONE . 'gestione-categorie-prodotti.php');
         exit();
     }
 }
@@ -34,7 +34,7 @@ if (isset($_GET['modifica'])) {
     	<?php
     	include_once GESTIONE_PATH . 'inc/head.php';
     	?>
-		<title>GESTIONE UTENTI</title>
+		<title>GESTIONE CATEGORIE PRODOTTI</title>
 	</head>
 	<body class="sb-nav-fixed">
 		<?php
@@ -51,11 +51,11 @@ if (isset($_GET['modifica'])) {
     		
     		<?php
     		if (isset($_GET['nuovo'])) {
-    		    include_once GESTIONE_PATH . 'inc/utenti/nuovo.php';
+    		    include_once GESTIONE_PATH . 'inc/categorie-prodotti/nuovo.php';
     		} elseif (isset($_GET['modifica'])) {
-    		    include_once GESTIONE_PATH . 'inc/utenti/modifica.php';
+    		    include_once GESTIONE_PATH . 'inc/categorie-prodotti/modifica.php';
     		} else {
-    		    include_once GESTIONE_PATH . 'inc/utenti/cerca.php';
+    		    include_once GESTIONE_PATH . 'inc/categorie-prodotti/cerca.php';
     		}
     		?>
     				</div>
