@@ -12,6 +12,16 @@
                     Categorie prodotti
                 </a>
                 
+                <a class="nav-link" href="<?= GESTIONE ?>gestione-taglie-prodotti.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tshirt"></i></div>
+                    Taglie prodotti
+                </a>
+                
+                <a class="nav-link" href="<?= GESTIONE ?>gestione-colori-prodotti.php">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tint"></i></div>
+                    Colori prodotti
+                </a>
+                
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon">
                     	<i class="fas fa-user-lock"></i>

@@ -40,3 +40,18 @@ function getCategoriaById($id)
 {
     return selectFirst("SELECT * FROM categorie_prodotti WHERE id = '" . enc($id) . "'");
 }
+
+function checkUniqueTagliaProdotto($descrizione, $idTaglia = null)
+{
+    $query = "SELECT * FROM taglie_prodotti WHERE descrizione = '" . enc($descrizione) . "'";
+    if (!empty($idTaglia)) {
+        $query .= " AND id != '" . enc($idTaglia) . "'";
+    }
+    
+    return selectFirst($query);
+}
+
+function getTagliaById($id)
+{
+    return selectFirst("SELECT * FROM taglie_prodotti WHERE id = '" . enc($id) . "'");
+}

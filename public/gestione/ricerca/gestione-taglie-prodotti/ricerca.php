@@ -9,10 +9,10 @@ if (!checkLoginGestione()) {
     exit();
 }
 
-$columns = require GESTIONE_PATH . 'ricerca/gestione-categorie-prodotti/columns.php';
+$columns = require GESTIONE_PATH . 'ricerca/gestione-taglie-prodotti/columns.php';
 
 $where = [
-    'c.attivo = 1',
+    'attivo = 1',
 ];
 
 if (!empty($_POST['data']['ricerca_titolo'])) {
@@ -31,17 +31,14 @@ foreach ($_POST['order'] ?? [] as $ordinamento) {
     $tipoOrdinamento = $ordinamento['dir'] == 'asc' ? "ASC" : "DESC";
     
     switch ($column['data']) {
-        case 'categoria':
-            $order[] = "cat.descrizione " . $tipoOrdinamento;
-            break;
             
         default:
-            $order[] = "c." . $column['data'] . " " . $tipoOrdinamento;
+            $order[] = $column['data'] . " " . $tipoOrdinamento;
             break;
     }
 }
 
-$order[] = "c.id_padre ASC, c.descrizione ASC";
+$order[] = "descrizione ASC";
 
 $start = (int) $_POST['start'] ?? 0;
 $start = $start >= 0 ? $start : 0;
@@ -51,32 +48,28 @@ $length = $length > 0 ? $length : 25;
 
 $query = "
     SELECT SQL_CALC_FOUND_ROWS
-        c.*,
-        cp.descrizione AS categoria_padre
+        *
     FROM
-        categorie_prodotti AS c
-    LEFT JOIN categorie_prodotti AS cp ON cp.id = c.id_padre
+        taglie_prodotti
     WHERE
         " . implode(" AND ", $where) . "
     ORDER BY " . implode(", ", $order) . "
     LIMIT " . $start . ", " . $length . ";
 ";
-$categorie = select($query);
+$taglie = select($query);
 $rows = selectFirst("SELECT FOUND_ROWS() AS righe");
 
 $items = [];
 
-foreach ($categorie as $categoria) {
-    $linkModifica = GESTIONE . 'gestione-categorie-prodotti.php?' . http_build_query([
-        'modifica' => $categoria['id']
+foreach ($taglie as $taglia) {
+    $linkModifica = GESTIONE . 'gestione-taglie-prodotti.php?' . http_build_query([
+        'modifica' => $taglia['id']
     ]);
-    $linkRimuovi = ROOT . '_class/categorie-prodotti.php';
-    $dataAggiornamento = DateTime::createFromFormat('Y-m-d H:i:s', $categoria['data_aggiornamento']);
+    $linkRimuovi = ROOT . '_class/taglie-prodotti.php';
+    $dataAggiornamento = DateTime::createFromFormat('Y-m-d H:i:s', $taglia['data_aggiornamento']);
     
     $items[] = [
-        'categoria' => $categoria['descrizione'],
-        'categoria_padre' => $categoria['categoria_padre'] ?? '',
-        'slug' => $categoria['slug'],
+        'taglia' => $taglia['descrizione'],
         'data_aggiornamento' => <<<HTML
             <div class="text-center">
             {$dataAggiornamento->format('d/m/Y H:i')}
@@ -89,7 +82,7 @@ foreach ($categorie as $categoria) {
             </a>
             <form method="post" action="{$linkRimuovi}" class="d-inline">
                 <input type="hidden" name="azione" value="elimina" />
-                <input type="hidden" name="id_categoria" value="{$categoria['id']}" />
+                <input type="hidden" name="id_taglia" value="{$taglia['id']}" />
                 <button type="submit" class="btn btn-sm btn-outline-danger rimuovi-record" title="Elimina">
                     <i class="fas fa-trash"></i> Rimuovi
                 </button>
