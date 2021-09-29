@@ -55,3 +55,18 @@ function getTagliaById($id)
 {
     return selectFirst("SELECT * FROM taglie_prodotti WHERE id = '" . enc($id) . "'");
 }
+
+function checkUniqueColoreProdotto($descrizione, $idColore = null)
+{
+    $query = "SELECT * FROM colori_prodotti WHERE descrizione = '" . enc($descrizione) . "'";
+    if (!empty($idColore)) {
+        $query .= " AND id != '" . enc($idColore) . "'";
+    }
+    
+    return selectFirst($query);
+}
+
+function getColoreById($id)
+{
+    return selectFirst("SELECT * FROM colori_prodotti WHERE id = '" . enc($id) . "'");
+}

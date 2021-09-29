@@ -26,3 +26,9 @@ h5 {
 h6 {
     font-size: 18px;
 }
+
+.color-view {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+}
