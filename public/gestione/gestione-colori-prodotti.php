@@ -42,6 +42,7 @@ if (isset($_GET['modifica'])) {
 		?>
 		<div id="layoutSidenav">
 			<?php
+			$pagina = "colori-prodotti";
     		include_once GESTIONE_PATH . 'inc/sidebar.php';
             ?>
             
