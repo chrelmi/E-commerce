@@ -40,7 +40,7 @@ $(function() {
       //   window.reloadInputs($("#search-table"));
       // });
 
-      form.on('click', '.reset-ordinamento', function(e) {
+      $(".btn-group").on('click', '.reset-ordinamento', function(e) {
         e.preventDefault();
         dataTable.fnSortNeutral();
       });

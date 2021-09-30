@@ -31,8 +31,12 @@ foreach ($_POST['order'] ?? [] as $ordinamento) {
     $tipoOrdinamento = $ordinamento['dir'] == 'asc' ? "ASC" : "DESC";
     
     switch ($column['data']) {
+        case 'categoria_padre':
+            $order[] = "cp.descrizione " . $tipoOrdinamento;
+            break;
+
         case 'categoria':
-            $order[] = "cat.descrizione " . $tipoOrdinamento;
+            $order[] = "c.descrizione " . $tipoOrdinamento;
             break;
             
         default:

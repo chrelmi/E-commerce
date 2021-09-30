@@ -17,7 +17,7 @@ $columns = require GESTIONE_PATH . 'ricerca/gestione-categorie-prodotti/columns.
 	]) ?>">
 		<i class="fas fa-plus"></i> Nuova categoria
 	</a>
-	<button type="button" class="btn btn-sm btn-outline-primary">
+	<button type="button" class="btn btn-sm btn-outline-primary reset-ordinamento">
 		<i class="fas fa-eraser"></i> Rimuovi ordinamento
 	</button>
 </div>
